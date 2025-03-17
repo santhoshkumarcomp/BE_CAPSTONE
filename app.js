@@ -12,7 +12,7 @@ const sellerPostRouter = require("./routes/sellerPost");
 const buyerActivityRouter = require("./routes/buyerActivity");
 app.use(
   cors({
-    origin: "https://subtle-kleicha-aa8606.netlify.app/", // allow to server to accept request from different origin
+    origin: "https://subtle-kleicha-aa8606.netlify.app", // allow to server to accept request from different origin
 
     credentials: true, // or '*' to allow any origin (not recommended for production)
   })
