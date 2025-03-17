@@ -43,7 +43,7 @@ const authSellerController = {
         httpOnly: true,
         sameSite: "strict",
         maxAge: 3 * 60 * 60 * 1000,
-        secure: false,
+        secure: true,
         path: "/",
       });
       res.send("logged in");
