@@ -41,7 +41,7 @@ const authSellerController = {
       });
       res.cookie("token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         maxAge: 3 * 60 * 60 * 1000,
         secure: true,
         path: "/",
@@ -56,7 +56,7 @@ const authSellerController = {
     try {
       res.clearCookie("token", {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "none",
         secure: true,
         path: "/",
       });
