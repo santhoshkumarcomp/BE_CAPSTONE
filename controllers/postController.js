@@ -139,9 +139,9 @@ const postController = {
           await Post.findByIdAndUpdate(post._id, { closed: true });
         }
       });
-      posts = await Post.find({ author });
-      const closedPosts = posts.filter((post) => post.closed);
-      res.json(closedPosts);
+      // posts = await Post.find({ author });
+      // const closedPosts = posts.filter((post) => post.closed);
+      res.json("Refreshed");
     } catch (error) {
       console.log(error.message);
     }
