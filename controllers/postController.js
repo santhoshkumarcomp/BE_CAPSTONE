@@ -127,7 +127,10 @@ const postController = {
     try {
       const sellerId = req.sellerId;
       const author = sellerId;
-      let posts = await Post.find({ author }).populate("author", "name _id");
+      let posts = await Post.find({ author }).populate(
+        "author",
+        "name _id email "
+      );
       if (!posts) {
         console.log("in return here");
         return;
@@ -143,11 +146,11 @@ const postController = {
           if (!post.winner || !post.winner.length) {
             post.winner = winner;
             await post.save();
-            let email = await Buyer.findById(winner).select("email");
+            let email = await Buyer.findById(winner).select("email ");
             await sendMail(
               email,
               "Auction Closed",
-              `Auction for ${post.title} has closed, winner is ${winner}, contact seller's email ${post.author.name} for more details`
+              `Auction for ${post.title} has closed,you are the winner, contact seller's email ${post.author.email} for more details`
             );
           }
         }
