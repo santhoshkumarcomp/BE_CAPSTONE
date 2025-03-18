@@ -127,7 +127,7 @@ const postController = {
     try {
       const sellerId = req.sellerId;
       const author = sellerId;
-      let posts = await Post.find({ author });
+      let posts = await Post.find({ author }).populate("author", "name _id");
       if (!posts) {
         console.log("in return here");
         return;
@@ -147,7 +147,7 @@ const postController = {
             await sendMail(
               email,
               "Auction Closed",
-              `Auction for ${post.title} has closed, winner is ${winner}`
+              `Auction for ${post.title} has closed, winner is ${winner}, contact seller's email ${post.author.name} for more details`
             );
           }
         }
