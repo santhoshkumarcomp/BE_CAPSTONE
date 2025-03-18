@@ -6,6 +6,7 @@ const {
   getPost,
   updatePost,
   deletePost,
+  updateValue,
 } = require("../controllers/postController");
 const upload = require("../middlewares/upload");
 const sellerPostRouter = express.Router();
@@ -17,6 +18,7 @@ sellerPostRouter.post(
   createPost
 );
 sellerPostRouter.get("/getposts", isAuthenticatedSeller, getAllPosts);
+sellerPostRouter.get("/closedposts", isAuthenticatedSeller, updateValue);
 sellerPostRouter.get("/postbyid/:id", isAuthenticatedSeller, getPost);
 sellerPostRouter.put(
   "/postbyid/:id",

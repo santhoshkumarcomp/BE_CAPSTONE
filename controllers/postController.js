@@ -121,6 +121,30 @@ const postController = {
       res.status(500).send(error.message);
     }
   },
+  updateValue: async (req, res) => {
+    try {
+      const sellerId = req.sellerId;
+      const author = sellerId;
+      const posts = await Post.find({ author });
+      if (!posts) {
+        console.log("in return here");
+        return;
+      }
+      posts.map(async (post) => {
+        let dt = new Date(post.createdAt);
+        const [date, time] = dt.toISOString().split("T");
+        const t = time.split("Z");
+        console.log(Date.now() - dt);
+        if (Date.now() - dt > 1800000 && !post.closed) {
+          await Post.findByIdAndUpdate(post._id, { closed: true });
+        }
+      });
+      const closedPosts = posts.filter((post) => post.closed);
+      res.json(closedPosts);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
 };
 
 module.exports = postController;
