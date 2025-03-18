@@ -139,7 +139,7 @@ const postController = {
           await Post.findByIdAndUpdate(post._id, { closed: true });
         }
       });
-      const closedPosts = posts.filter((post) => post.closed);
+      const closedPosts = posts.filter((post) => !post.closed);
       res.json(closedPosts);
     } catch (error) {
       console.log(error.message);
