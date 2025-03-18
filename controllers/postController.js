@@ -3,6 +3,7 @@ const Seller = require("../models/seller");
 const Price = require("../models/price");
 const fs = require("fs");
 const sendMail = require("../utils/sendMail");
+const Buyer = require("../models/buyer");
 
 const postController = {
   createPost: async (req, res) => {
@@ -142,8 +143,9 @@ const postController = {
           if (!post.winner.length > 0) {
             post.winner = winner;
             await post.save();
+            let email = await Buyer.findById(winner).select("email");
             await sendMail(
-              post.author.email,
+              email,
               "Auction Closed",
               `Auction for ${post.title} has closed, winner is ${winner}`
             );
