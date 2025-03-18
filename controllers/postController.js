@@ -139,7 +139,7 @@ const postController = {
         console.log(Date.now() - dt);
         if (Date.now() - dt > 1800000 && !post.closed) {
           await Post.findByIdAndUpdate(post._id, { closed: true });
-          const winner = post.bidders[bidders.length - 1];
+          const winner = post.bidders[post.bidders.length - 1];
           if (!post.winner.length > 0) {
             post.winner = winner;
             await post.save();
