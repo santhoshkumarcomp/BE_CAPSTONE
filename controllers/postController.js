@@ -140,7 +140,7 @@ const postController = {
         if (Date.now() - dt > 1800000 && !post.closed) {
           await Post.findByIdAndUpdate(post._id, { closed: true });
           const winner = post.bidders[post.bidders.length - 1];
-          if (!post.winner.length > 0) {
+          if (!post.winner || !post.winner.length) {
             post.winner = winner;
             await post.save();
             let email = await Buyer.findById(winner).select("email");
