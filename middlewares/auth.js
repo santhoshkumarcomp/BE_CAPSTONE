@@ -38,8 +38,15 @@ const auth = {
         return res.status(404).send("Post not found");
       }
       if (post.closed) {
-        return res.status(404).send("Auction closed");
+        const winner = post.bidders[bidders.length - 1];
+        if (winner === req.buyerId) {
+          return res.status(404).send(`Auction closed, you are the winner`);
+        }
+        if (winner !== req.buyerId) {
+          return res.status(404).send(`Auction closed, winner is ${winner}`);
+        }
       }
+
       next();
     } catch (error) {
       res.satus(500).send(error.message);

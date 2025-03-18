@@ -2,6 +2,7 @@ const Post = require("../models/post");
 const Seller = require("../models/seller");
 const Price = require("../models/price");
 const fs = require("fs");
+const sendMail = require("../utils/sendMail");
 
 const postController = {
   createPost: async (req, res) => {
@@ -137,6 +138,16 @@ const postController = {
         console.log(Date.now() - dt);
         if (Date.now() - dt > 1800000 && !post.closed) {
           await Post.findByIdAndUpdate(post._id, { closed: true });
+          const winner = post.bidders[bidders.length - 1];
+          if (!post.winner.length > 0) {
+            post.winner = winner;
+            await post.save();
+            await sendMail(
+              post.author.email,
+              "Auction Closed",
+              `Auction for ${post.title} has closed, winner is ${winner}`
+            );
+          }
         }
       });
       // posts = await Post.find({ author });

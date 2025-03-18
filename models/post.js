@@ -32,18 +32,11 @@ const postSchema = new mongoose.Schema(
       enum: ["traditional", "reverse", "sealed"],
       default: "traditional",
     },
-    traditionalWon: {
+    winner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Buyer",
     },
-    reverseWon: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Buyer",
-    },
-    sealedWon: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Buyer",
-    },
+
     picture: {
       type: String,
       default: "",
