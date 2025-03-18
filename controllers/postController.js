@@ -125,7 +125,7 @@ const postController = {
     try {
       const sellerId = req.sellerId;
       const author = sellerId;
-      const posts = await Post.find({ author });
+      let posts = await Post.find({ author });
       if (!posts) {
         console.log("in return here");
         return;
@@ -139,7 +139,8 @@ const postController = {
           await Post.findByIdAndUpdate(post._id, { closed: true });
         }
       });
-      const closedPosts = posts.filter((post) => !post.closed);
+      posts = await Post.find({ author });
+      const closedPosts = posts.filter((post) => post.closed);
       res.json(closedPosts);
     } catch (error) {
       console.log(error.message);
