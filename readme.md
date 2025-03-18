@@ -107,3 +107,7 @@ This project is an auction site where users can auction items. It allows buyers 
 ## License
 
 This project is licensed under the ISC License.
+
+## POSTMAN DOCUMENTATION
+
+https://documenter.getpostman.com/view/39779988/2sAYkDN1Jr
