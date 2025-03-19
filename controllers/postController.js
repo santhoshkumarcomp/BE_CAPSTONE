@@ -152,6 +152,11 @@ const postController = {
               "Auction Closed",
               `Auction for ${post.title} has closed,you are the winner, contact seller's email ${post.author.email} for more details`
             );
+            await sendMail(
+              post.author.email,
+              "Auction Closed",
+              `Auction for ${post.title} has the winner contact email is ${email}  for more details`
+            );
           }
         }
       });
