@@ -142,20 +142,28 @@ const postController = {
         console.log(Date.now() - dt);
         if (Date.now() - dt > 1800000 && !post.closed) {
           await Post.findByIdAndUpdate(post._id, { closed: true });
-          const winner = post.bidders[post.bidders.length - 1];
-          if (!post.winner || !post.winner.length) {
+          post.bidders.length > 0
+            ? (winner = post.bidders[post.bidders.length - 1])
+            : (winner = null);
+          if (winner) {
             post.winner = winner;
             await post.save();
-            let email = await Buyer.findById(winner).select("email ");
+            let email = await Buyer.findById(winner).select("email");
             await sendMail(
               email,
               "Auction Closed",
-              `Auction for ${post.title} has closed,you are the winner, contact seller's email ${post.author.email} for more details`
+              `Auction for ${post.title} has closed. You are the winner! Contact seller's email ${post.author.email} for more details`
             );
             await sendMail(
               post.author.email,
               "Auction Closed",
-              `Auction for ${post.title} has the winner contact email is ${email}  for more details`
+              `Auction for ${post.title} has closed. The winner's email is ${email} for more details`
+            );
+          } else {
+            await sendMail(
+              post.author.email,
+              "Auction Closed",
+              `Auction for ${post.title} has closed with no bids received.`
             );
           }
         }
