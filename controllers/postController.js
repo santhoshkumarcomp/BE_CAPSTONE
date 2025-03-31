@@ -87,7 +87,7 @@ const postController = {
       if (!post) {
         return res.status(404).send("Post not found");
       }
-      if (filePath) {
+      if (filePath && fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
       }
       const sellerId = req.sellerId;
