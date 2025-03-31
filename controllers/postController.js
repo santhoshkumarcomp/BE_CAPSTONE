@@ -118,7 +118,9 @@ const postController = {
       if (!post) {
         return res.status(404).send("Post not found");
       }
-      fs.unlinkSync(filePath);
+      if (filePath && fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
       console.log("File deleted successfully");
       res.send(" delete post");
     } catch (error) {

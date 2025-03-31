@@ -88,7 +88,9 @@ const authBuyerController = {
       if (buyer.picture.length > 0) {
         const filePath = buyer.picture;
 
-        fs.unlinkSync(filePath);
+        if (filePath && fs.existsSync(filePath)) {
+          fs.unlinkSync(filePath);
+        }
         buyer.picture = picture;
       }
       buyer.picture = picture;
