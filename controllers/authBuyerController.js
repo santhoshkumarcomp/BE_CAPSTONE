@@ -33,7 +33,7 @@ const authBuyerController = {
       }
       const isPasswordCorrect = await bcrypt.compare(password, buyer.password);
       if (!isPasswordCorrect) {
-        res.status(500).send("Invalid credentials");
+        return res.status(500).send("Invalid credentials");
       }
       console.log(JWT_SECRET);
       const token = await jwt.sign({ buyerId: buyer._id }, JWT_SECRET, {
