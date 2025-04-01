@@ -10,7 +10,7 @@ const authSellerController = {
       const { name, email, password } = req.body;
       const seller = await Seller.findOne({ email });
       if (seller) {
-        res.send("User already exists");
+        return res.send("User already exists");
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       const newSeller = new Seller({
