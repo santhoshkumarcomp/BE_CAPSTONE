@@ -90,7 +90,7 @@ const buyerActivityController = {
     }
   },
   sealedBidPost: async (req, res) => {
-    try {
+    try { 
       const postId = req.params.id;
       const post = await Post.findById(postId);
       let { price } = req.body;
