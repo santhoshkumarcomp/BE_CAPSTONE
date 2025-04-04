@@ -94,7 +94,7 @@ const buyerActivityController = {
       const postId = req.params.id;
       const post = await Post.findById(postId);
       let { price } = req.body;
-      const bidPrice = price;
+      const initialPrice = price;
       if (!post) {
         return res.status(404).send("Post not found");
       }
